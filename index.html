@@ -1,103 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 	<title>Document</title>
 	<style>
-		*{margin: 0;padding: 0;}
-		.container{
-			/*padding: 50px;*/
-			margin: 0 auto;
-			position: relative;
-			border: 1px solid gray;
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style-type: none;
+			width: 20%;
+			background-color: #f1f1f1;
+			height: 100%;
+			position: fixed;
 			overflow: auto;
-			height: 400px
 		}
-		img{
+		li a{
 			display: block;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%,-50%);
-			margin: auto;
-			box-shadow: 1px 2px 4px #afafaf;
-		}
-		img:not(.img1){
-			display: none;
-		}
-		img:hover{
-			opacity: 0.6;
-			filter: alpha(opacity=60);
-		}
-		.timer{
-			/*position: ;*/
+			padding: 12px 0px;
+			line-height: height;
 			text-align: center;
-			padding: 20px 100px;
-			z-index: 10;
+			-webkit-transition: background-color 0.4s;
+			-o-transition: background-color 0.4s;
+			transition: background-color 0.4s;
+		}
+		li a:hover:not(.active){
+			background-color: #bfbfbf;
+			color: white;
+			font-family: serif;
+			cursor: pointer;
+		}
+		a.active{
+			background-color: #48CE30;
+		}
+		div{
+			margin-left: 20%;
+			width: 75	%;
+			padding: 30px;
+			line-height: 50px;
+			overflow: auto;
+		}
+		p{
+			font-size: 30px;
+		}
+		@media screen and (max-width: 900px){
+			ul{
+				width: 100%;
+				height: auto;
+				position: fixed;
+			}
+			li a{
+				/*display: block;*/
+				float: left;
+				padding: 15px;
+			}
+			div{
+				margin-left: 0px;
+			}
+			h2{
+				margin-top: 50px;
+			}
+		}
+		@media screen and (max-width: 400px){
+			ul{
+				position: relative;
+				/*width: 100%*/
+			}
+			li a{
+				/*width: 100%;*/
+				/*height: auto;*/
+				display: block;
+				float: none;
+				text-align: center;
+				padding: 10px;
+
+			}
+			div{
+				margin-left: 0px;
+			}
 		}
 	</style>
-	<script>
-		window.onload = function(){
-			var greeting = document.getElementsByClassName("greeting")[0];
-			var myButton = document.getElementById("changeName");
-
-			function setName(){
-				var myName = prompt("Enter your name: ");
-				if(myName != ""){
-					localStorage.setItem("name", myName);
-					greeting.innerHTML = "Welcome " + myName;	
-				}
-				
-			}
-			if(!localStorage.getItem('name')){
-				setName();
-			} else {
-				var myName = localStorage.getItem('name');
-				greeting.innerHTML = "Welcome " + myName;				
-			}
-
-			myButton.onclick = function(){
-				setName();
-			}
-			
-			var node = document.querySelector("img");
-			var i = 1;
-			setInterval(function(){
-				i++;
-				if(i>6){
-					i = 1;
-				}
-				node.src = "./img/" + i +".jpg";
-				node.style.display = "block";
-
-			}, 4000);
-			// document.getElementsByClassName("timer")[0].innerHTML = ;
-			function getTime(){
-				var nodes = document.getElementsByClassName("timer")[0];
-				var now = new Date();
-				var time = now.toString();
-				nodes.innerHTML = time;
-				setInterval(getTime, 1000);
-			}
-			// getTime();
-			// 
-			
-		};
-	</script>
 
 </head>
 <body>
-	<div class="greet">
-		<p class="greeting"></p>
-		<button id="changeName">changeName</button>
+	<ul>
+		<li><a id="home" class="active nav">Home</a></li>
+		<li><a id="news" class="nav">News</a></li>
+		<li><a id="contact" class="nav">Contact</a></li>
+		<li><a id="about" class="nav">About</a></li>
+	</ul>
+	<div>
+		<h2>Hello</h2>
+			
+		<p>Fixed Full-height Side Nav
+
+Try to scroll this area, and see how the sidenav sticks to the page
+
+Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.
+
+Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).
+
+<p>Some text..</p>
+
+<p>Some text..</p>
+
+<p>Some text..</p>
+
+<p>Some text..</p>
+
+<p>Some text..</p>
+
+<p>Some text..</p>
+
+<p>Some text..</p></p>
 	</div>
-	<div class="container">
-		<img src="./1.jpg" class="img img1"	alt="scenes">
-<!-- 		<img src="./2.jpg" class="img img2"	alt="scenes">
-		<img src="./3.jpg" class="img img3"	alt="scenes">
-		<img src="./4.jpg" class="img img4"	alt="scenes">
-		<img src="./5.jpg" class="img img5"	alt="scenes"> -->
-		<div class="timer"></div>
-	</div>
+	<script>
+			var node = document.getElementsByTagName("a");
+			var far = document.getElementsByTagName("ul")[0];
+			far.onclick = nav;
+
+			function nav(e){
+				var c = event.target;
+				var actived = document.getElementsByClassName("active")[0];
+				actived.className = "nav";
+				c.className = c.className + " " + "active";
+			}
+	</script>
 </body>
 </html>
