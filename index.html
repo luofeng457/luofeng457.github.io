@@ -1,1 +1,103 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		.container{
+			/*padding: 50px;*/
+			margin: 0 auto;
+			position: relative;
+			border: 1px solid gray;
+			overflow: auto;
+			height: 400px
+		}
+		img{
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			margin: auto;
+			box-shadow: 1px 2px 4px #afafaf;
+		}
+		img:not(.img1){
+			display: none;
+		}
+		img:hover{
+			opacity: 0.6;
+			filter: alpha(opacity=60);
+		}
+		.timer{
+			/*position: ;*/
+			text-align: center;
+			padding: 20px 100px;
+			z-index: 10;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var greeting = document.getElementsByClassName("greeting")[0];
+			var myButton = document.getElementById("changeName");
+
+			function setName(){
+				var myName = prompt("Enter your name: ");
+				if(myName != ""){
+					localStorage.setItem("name", myName);
+					greeting.innerHTML = "Welcome " + myName;	
+				}
+				
+			}
+			if(!localStorage.getItem('name')){
+				setName();
+			} else {
+				var myName = localStorage.getItem('name');
+				greeting.innerHTML = "Welcome " + myName;				
+			}
+
+			myButton.onclick = function(){
+				setName();
+			}
+			
+			var node = document.querySelector("img");
+			var i = 1;
+			setInterval(function(){
+				i++;
+				if(i>6){
+					i = 1;
+				}
+				node.src = "./img/" + i +".jpg";
+				node.style.display = "block";
+
+			}, 4000);
+			// document.getElementsByClassName("timer")[0].innerHTML = ;
+			function getTime(){
+				var nodes = document.getElementsByClassName("timer")[0];
+				var now = new Date();
+				var time = now.toString();
+				nodes.innerHTML = time;
+				setInterval(getTime, 1000);
+			}
+			// getTime();
+			// 
+			
+		};
+	</script>
+
+</head>
+<body>
+	<div class="greet">
+		<p class="greeting"></p>
+		<button id="changeName">changeName</button>
+	</div>
+	<div class="container">
+		<img src="./1.jpg" class="img img1"	alt="scenes">
+<!-- 		<img src="./2.jpg" class="img img2"	alt="scenes">
+		<img src="./3.jpg" class="img img3"	alt="scenes">
+		<img src="./4.jpg" class="img img4"	alt="scenes">
+		<img src="./5.jpg" class="img img5"	alt="scenes"> -->
+		<div class="timer"></div>
+	</div>
+</body>
+</html>
